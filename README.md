@@ -4,7 +4,8 @@ Lox is a tiny mongoose based authentication middleware for [Express](http://expr
 Lox tries to provide the minimum set of features to handle users.
 Lox is written in coffeescript by Marcel Miranda [<reaktivo.com>](http://reaktivo.com).
 
-Readable documentation is located at [reaktivo.github.com/lox](http://reaktivo.github.com/lox/)
+[Source Code](https://github.com/reaktivo/lox)
+[Documentation](http://reaktivo.github.com/lox/)
 
 
 ## Installation
