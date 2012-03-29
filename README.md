@@ -40,9 +40,9 @@ app.get '/who', (req, res) ->
   res.send req.user or "No user logged in"
 
 # Create session (login)
-app.get '/login', (req, res, next) ->
-  email = req.params.email
-  password = req.params.password
+app.post '/login', (req, res, next) ->
+  email = req.body.email
+  password = req.body.password
   req.login email, password, (err, user) ->
     if user then res.send "logged in as #{user.email}"
     else res.send  "not logged in"
