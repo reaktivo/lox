@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Lox - Tiny authentication middleware for Express based on mongoose</title>
+	<link href="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+	<link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+</head>
+<body onload="prettyPrint()">
+	<div class="container">
+		<h1>Lox</h1>
+		<a class="btn btn-primary" href="http://search.npmjs.org/#/lox">NPM</a>
+		<a class="btn btn-info" href="https://github.com/reaktivo/lox">Github</a>
+		<a class="btn" href="http://twitter.com/reaktivo">Twitter</a>
+		<hr>
+		<p>Lox was created after being dissatisfied with the requirements of other authentication frameworks for Nodejs</p>
+		<p>Lox aims to be as simple as possible, while maintaining a set of core features</p>
+		<h2>Installation</h2>
+		<code>npm install lox</code>
+		<h2>Usage</h2>
+		<pre class="prettyprint linenums">
+# Start by adding as Express middleware
+mongoDb = 'mongodb://user:password@staff.mongohq.com:1234/whatever'
+app = express.createServer()
+# Make sure to add it after session middleware
+app.use express.session(secret: "234asldkn2naodufnu4n")
+app.use lox.middleware(mongoDb)
+
+# Create a user
+lox.create email, password, (err) ->
+  # err != undefined if user could not be created
+
+# Delete a user
+lox.destroy email, (err, user) ->
+  # user.lastWords()
+
+# Get list of all users
+lox.find (err, users) ->
+  # do something with users array
+
+# Get access to logged in user
+app.get '/who', (req, res) ->
+  res.send req.user or "No user logged in"
+
+# Create session (login)
+app.get '/login', (req, res, next) ->
+  email = req.params.email
+  password = req.params.password
+  req.login email, password, (err, user) ->
+    if user then res.send "logged in as #{user.email}"
+    else res.send  "not logged in"
+
+# Destroy session (logout)
+app.get '/logout', (req, res, next) ->
+  req.logout -> res.redirect '/'
+</pre>
+	</div>
+	<script src="scripts/prettify.js"></script>
+</body>
+</html>
