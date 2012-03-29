@@ -1,112 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lox</title>
-    
-    <link rel="stylesheet" type="text/css" href="http://documentup.com/stylesheets/screen.css">
-    
-    
-
-    
-      <!-- Google Analytics -->
-      <script type="text/javascript">
-
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-30446621-1']);
-        _gaq.push(['_trackPageview']);
-
-        (function() {
-          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-
-      </script>
-    
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/documentup/0.1.1/documentup.min.js"></script>
+    <script>
+      DocumentUp.document({
+        repo: "reaktivo/lox",
+        name: "Lox",
+        twitter: "reaktivo",
+        issues: true,
+        travis: true,
+        google_analytics: 'UA-30446621-1'
+      });
+    </script>
   </head>
-  <body><div id="nav">
-  <div id="header">
-    <a href="#" id="logo">Lox</a>
-  </div>
-  <ul id="sections">
-    
-      <li>
-        <a href="#installation">Installation</a>
-        
-      </li>
-    
-      <li>
-        <a href="#usage">Usage</a>
-        
-      </li>
-    
-      <li>
-        <a href="#contributing-to-lox">Contributing to lox</a>
-        
-      </li>
-    
-  </ul>
-  
-  
-    
-    
-      <div class="extra twitter">
-        <iframe allowtransparency="true" frameborder="0" scrolling="no" style="width:162px; height:20px;" src="https://platform.twitter.com/widgets/follow_button.html?screen_name=reaktivo&show_count=false"></iframe>
-      </div>
-    
-  
-</div>
-<div id="content">
-  
-  <h1>Lox</h1>
-<p>Lox is a tiny mongoose based authentication middleware for <a href="http://expressjs.com">Express</a>.
-
-</p>
-<p>Lox is written in coffeescript
-
-</p>
-<h2 id='installation'>Installation</h2 id='installation'>
-<pre><code>npm <span class="keyword">install</span> lox</code></pre>
-<h2 id='usage'>Usage</h2 id='usage'>
-<pre><code><span class="comment"># Start by adding as Express middleware</span>
-mongoDb = <span class="string">'mongodb://user:password@staff.mongohq.com:1234/whatever'</span>
-app = express.createServer<span class="params">()</span>
-<span class="comment"># Make sure to add it after session middleware</span>
-app.use express.session<span class="params">(secret: <span class="string">"234asldkn2naodufnu4n"</span>)</span>
-app.use lox.middleware<span class="params">(mongoDb)</span>
-
-<span class="comment"># Create a user</span>
-lox.create email, password, <span class="params">(err)</span> <span class="function">-></span>
-  <span class="comment"># err != undefined if user could not be created</span>
-
-<span class="comment"># Delete a user</span>
-lox.destroy email, <span class="params">(err, user)</span> <span class="function">-></span>
-  <span class="comment"># user.lastWords()</span>
-
-<span class="comment"># Get list of all users</span>
-lox.find <span class="params">(err, users)</span> <span class="function">-></span>
-  <span class="comment"># do something with users array</span>
-
-<span class="comment"># Get access to logged in user</span>
-app.get <span class="string">'/who'</span>, <span class="params">(req, res)</span> <span class="function">-></span>
-  res.send req.user <span class="keyword">or</span> <span class="string">"No user logged in"</span>
-
-<span class="comment"># Create session (login)</span>
-app.post <span class="string">'/login'</span>, <span class="params">(req, res, next)</span> <span class="function">-></span>
-  email = req.body.email
-  password = req.body.password
-  req.login email, password, <span class="params">(err, user)</span> <span class="function">-></span>
-    <span class="keyword">if</span> user <span class="keyword">then</span> res.send <span class="string">"logged in as <span class="subst">#{user.email}</span>"</span>
-    <span class="keyword">else</span> res.send  <span class="string">"not logged in"</span>
-
-<span class="comment"># Destroy session (logout)</span>
-app.get <span class="string">'/logout'</span>, <span class="params">(req, res, next)</span> <span class="function">-></span>
-  req.logout <span class="function">-></span> res.redirect <span class="string">'/'</span></code></pre>
-<h2 id='contributing-to-lox'>Contributing to lox</h2 id='contributing-to-lox'>
-<ul><li>Check out the latest master to make sure the feature hasn’t been implemented or the bug hasn’t been fixed yet</li><li>Check out the issue tracker to make sure someone already hasn’t requested it and/or contributed it</li><li>Fork the project</li><li>Start a feature/bugfix branch</li><li>Commit and push until you are happy with your contribution</li><li>Make sure to add tests for it. This is important so I don’t break it in a future version unintentionally. </li></ul>
-<p>Copyright © 2012 Marcel Miranda. See LICENSE for further details.</p>
-</div></body>
+  <body></body>
 </html>

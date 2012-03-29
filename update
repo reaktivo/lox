@@ -1,3 +1,0 @@
-curl -X POST --data-urlencode content@../lox/README.md -d "repo=reaktivo/lox" -d name=Lox -d issues=true -d travis=true -d twitter=reaktivo -d google_analytics=UA-30446621-1 http://documentup.com/compiled > index.html && open index.html
-git commit -am "Updated docs"
-git push origin gh-pages
