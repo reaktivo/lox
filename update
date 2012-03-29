@@ -1,5 +1,6 @@
 curl -X POST \
 --data-urlencode content@../lox/README.md \
+-d repo=reaktivo/lox
 -d name=Lox \
 -d issues=true \
 -d travis=true \
