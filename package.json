@@ -1,0 +1,22 @@
+{
+  "author": "Marcel Miranda <m@reaktivo.com> (http://reaktivo.com)",
+  "name": "lox",
+  "description": "A tiny mongoose based authentication middleware for Express",
+  "tags": ["auth", "authentication", "mongoose", "express", "expressjs"],
+  "version": "0.1.0",
+  "main": "./lib/lox",
+  "repository": {
+    "type": "git",
+    "url": "\"\""
+  },
+  "engines": {
+    "node": "~0.6.2"
+  },
+  "dependencies": {
+    "mongoose": "2.5.13",
+    "password-hash": "1.1.3"
+  },
+  "devDependencies": {
+    "coffee-script": "1.2.0"
+  }
+}
