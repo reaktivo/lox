@@ -9,18 +9,19 @@ form =
   email: 'some@email.com'
   password: 'somepassword'
 
+lox.middleware 'mongodb://tests:tests@staff.mongohq.com:10083/tests'
 
-app = do express.createServer
-app.use express.session secret: 'sdlfkjasoef28r0asdfo'
-app.use lox.middleware 'mongodb://tests:tests@staff.mongohq.com:10083/tests'
-app.use app.router
-
-# Send user json if it exists, else 401 response
-app.post '/login', (req, res) ->
-  req.login req.body.email, req.body.password, (err, user) ->
-    res.send (if user then 200 else 500)
-
-app.get '/logout', (req, res) -> req.logout -> res.send 200
+# app = do express.createServer
+# app.use express.session secret: 'sdlfkjasoef28r0asdfo'
+# app.use lox.middleware 'mongodb://tests:tests@staff.mongohq.com:10083/tests'
+# app.use app.router
+#
+# # Send user json if it exists, else 401 response
+# app.post '/login', (req, res) ->
+#   req.login req.body.email, req.body.password, (err, user) ->
+#     res.send (if user then 200 else 500)
+#
+# app.get '/logout', (req, res) -> req.logout -> res.send 200
 
 # app.listen port
 
