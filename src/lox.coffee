@@ -1,35 +1,38 @@
 User = null
 connection = null
 
-exports.middleware = (mongoDb) ->
+setUser = (req, callback) ->
+  if (req.session.user)
+    getUser req.session.user, (err, user) ->
+      req.user = user
+      callback err, user
+  else do callback
 
+exports.middleware = (mongoDb) ->
   connection = exports.connection = require('./db')(mongoDb)
   User = exports.User = require('./user')(connection)
 
   (req, res, next) ->
     unless req.session
       next new Error "Express Session middleware required for auth"
+    req.login = login(req)
+    req.logout = logout(req)
+    setUser req, next
 
-    lookForUser = (callback) ->
-      if (userSession = req.session.userSession)
-        getUser userSession, (err, user) ->
-          req.user = user
-          callback err, user
-      else do callback
+exports.login = login = (req) ->
+  (email, password = "", callback) ->
+    getUser email, (err, user) ->
+      callback err if err
+      if user?.verify(password)
+        req.session.user = user.email
+      setUser req, (err, user) ->
+        callback(err, user)
 
-    req.login = (email, password = "", callback) ->
-      getUser email, (err, user) ->
-        callback err if err
-        if user?.verify(password)
-          req.session.userSession = user.email
-        lookForUser (err, user) -> callback(err, user)
-
-    req.logout = (callback) ->
-      req.user = null
-      do req.session.destroy
-      do callback
-
-    lookForUser next
+exports.logout = logout = (req) ->
+  (callback) ->
+    req.user = null
+    do req.session.destroy
+    do callback
 
 exports.getUser = getUser = (query, callback) ->
   if typeof query is "string"
