@@ -56,7 +56,7 @@ Lox is written in coffeescript by Marcel Miranda [<reaktivo.com>](http://reaktiv
 Lox also provides login and logout middleware so you can quickly add it to your express project.
 
     # Both the login and logout handlers receive
-    # parameters for uri's to redirect to for if
+    # parameters for uri's to redirect to if
     # attempt is successful or failure.
 
     # Login
