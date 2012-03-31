@@ -2,7 +2,7 @@
 
 Lox is a tiny mongoose based authentication middleware for [Express](http://expressjs.com).
 Lox tries to provide the minimum set of features to handle users.
-Lox is written in coffeescript by Marcel Miranda [<reaktivo.com>](http://reaktivo.com).
+Lox is written in coffeescript by [Marcel Miranda](http://reaktivo.com).
 
 [Source Code](https://github.com/reaktivo/lox) - [Documentation](http://reaktivo.github.com/lox/)
 
@@ -68,8 +68,8 @@ Lox also provides login and logout middleware so you can quickly add it to your 
 
 ## Testing
 
-As I said before, Lox is written in coffee-script, so I you want to contribute to it, you have to build your js and test you don't break anything
-Tests use mocha are written in coffee-script also, so make sure you install developer dependencies beforehand.
+As I said before, Lox is written in coffee-script, so if you want to contribute, build your js and then test so you don't break anything
+Tests use mocha, so make sure you install developer dependencies beforehand.
 
     npm install --dev
     npm test
