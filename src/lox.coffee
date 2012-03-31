@@ -1,7 +1,6 @@
 routes = require './routes'
 
 User = null
-connection = null
 
 setUser = (req, callback) ->
   if (req.session.user)
@@ -11,8 +10,8 @@ setUser = (req, callback) ->
   else do callback
 
 connect = (mongoDb) ->
-  connection = exports.connection = require('./db')(mongoDb)
-  User = exports.User = require('./user')(connection)
+  connection = require('./db')(mongoDb)
+  User = connect.User = require('./user')(connection)
 
   (req, res, next) ->
     unless req.session
