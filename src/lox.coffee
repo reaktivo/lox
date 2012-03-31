@@ -8,7 +8,7 @@ setUser = (req, callback) ->
       callback err, user
   else do callback
 
-exports.middleware = (mongoDb) ->
+connect = (mongoDb) ->
   connection = exports.connection = require('./db')(mongoDb)
   User = exports.User = require('./user')(connection)
 
@@ -19,7 +19,7 @@ exports.middleware = (mongoDb) ->
     req.logout = logout(req)
     setUser req, next
 
-exports.login = login = (req) ->
+login = (req) ->
   (email, password = "", callback) ->
     getUser email, (err, user) ->
       callback err if err
@@ -28,27 +28,36 @@ exports.login = login = (req) ->
       setUser req, (err, user) ->
         callback(err, user)
 
-exports.logout = logout = (req) ->
+logout = (req) ->
   (callback) ->
     req.user = null
     do req.session.destroy
     do callback
 
-exports.getUser = getUser = (query, callback) ->
+getUser = (query, callback) ->
   if typeof query is "string"
     query = email: query
   User.findOne query, callback
 
-exports.create = (email, password, callback) ->
+create = (email, password, callback) ->
   new User({email, password}).save (err) -> callback(err)
 
-exports.destroy = (query, callback) ->
+destroy = (query, callback) ->
   getUser query, (err, user) ->
     if user then user.remove callback(null, user)
     else callback err
 
-exports.find = (query, callback) ->
+find = (query, callback) ->
   unless callback
     callback = query
     query = {}
   User.find query, (err, users) -> callback(err, users)
+
+module.exports = connect
+connect.middleware = connect
+connect.login = login
+connect.logout = logout
+connect.getUser = getUser
+connect.create = create
+connect.destroy = destroy
+connect.find = find
