@@ -1,41 +1,38 @@
-express = require '../node_modules/express'
-request = require '../node_modules/request'
 assert = require 'assert'
 lox = require '../lib/lox'
-
-port = process.env.app_port || 6789
-host = "http://localhost:#{port}"
-form =
-  email: 'some@email.com'
-  password: 'somepassword'
-
-lox.middleware 'mongodb://tests:tests@staff.mongohq.com:10083/tests'
-
-# app = do express.createServer
-# app.use express.session secret: 'sdlfkjasoef28r0asdfo'
-# app.use lox.middleware 'mongodb://tests:tests@staff.mongohq.com:10083/tests'
-# app.use app.router
-#
-# # Send user json if it exists, else 401 response
-# app.post '/login', (req, res) ->
-#   req.login req.body.email, req.body.password, (err, user) ->
-#     res.send (if user then 200 else 500)
-#
-# app.get '/logout', (req, res) -> req.logout -> res.send 200
-
-# app.listen port
+middleware = lox 'mongodb://tests:tests@staff.mongohq.com:10083/tests'
 
 describe 'Lox', ->
+
+  # Mock user
+  form =
+    email: 'some@email.com'
+    password: 'somepassword'
+
+  # Mock request
+  req =
+    session:
+      destroy: -> # session destroyed
+
   describe 'lox.create', ->
     it 'should create without error', (done) ->
       lox.create form.email, form.password, done
 
-  # describe 'req.login', ->
-  #   it 'should login without error', (done) ->
-  #     url = "#{host}/login"
-  #     request.post {form, url}, (err, res, body) ->
-  #       assert res.statusCode == 200, "Status code == 200"
-  #       do done
+  describe 'req.login', ->
+    it 'should login without error', (done) ->
+      # Simulate request flow with req, res, next
+      middleware req, null, (err) ->
+        done err if err
+        req.login form.user, form.password, (err, user) ->
+          assert(user.email == form.email, "User logged in")
+          done(err)
+
+  describe 'req.logout', ->
+    it 'should logout without error', (done) ->
+      # Simulate request flow with req, res, next
+      middleware req, null, (err) ->
+        done err if err
+        req.logout done
 
   describe 'lox.getUser', ->
     it 'should find the created user', (done) ->
