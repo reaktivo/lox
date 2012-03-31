@@ -1,3 +1,5 @@
+routes = require './routes'
+
 User = null
 connection = null
 
@@ -61,3 +63,4 @@ connect.getUser = getUser
 connect.create = create
 connect.destroy = destroy
 connect.find = find
+connect.routes = routes
