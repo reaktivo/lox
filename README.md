@@ -14,12 +14,14 @@ Lox is written in coffeescript by Marcel Miranda [<reaktivo.com>](http://reaktiv
 
 ## Usage
 
-    # Start by adding as Express middleware
-    mongoDb = 'mongodb://user:password@staff.mongohq.com:1234/whatever'
+    # Create express app
     app = express.createServer()
-    # Make sure to add it after session middleware
+
+    # Make sure to add the session middleware
     app.use express.session(secret: "234asldkn2naodufnu4n")
-    app.use lox.middleware(mongoDb)
+
+    # Then use the lox middleware
+    app.use lox('mongodb://user:password@staff.mongohq.com:1234/whatever')
 
     # Create a user
     lox.create email, password, (err) ->
@@ -48,6 +50,16 @@ Lox is written in coffeescript by Marcel Miranda [<reaktivo.com>](http://reaktiv
     # Destroy session (logout)
     app.get '/logout', (req, res, next) ->
       req.logout -> res.redirect '/'
+
+## Testing
+
+As I said before, Lox is written in coffee-script, so I you want to contribute to it, you have to build your js and test you don't break anything
+Tests use mocha are written in coffee-script also, so make sure you install developer dependencies beforehand.
+
+    npm install --dev
+    npm test
+
+You can checkout the latest build status at [Travis CI](http://travis-ci.org/#!/reaktivo/lox).
 
 ## Contributing to lox
 
