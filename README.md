@@ -68,7 +68,7 @@ Lox also provides login and logout middleware so you can quickly add it to your 
 
 ## Testing
 
-As I said before, Lox is written in coffee-script, so if you want to contribute, build your js and then test so you don't break anything.
+Lox is written in coffeescript, so if you want to contribute, build your js and then test so you don't break anything.
 Tests use mocha, so make sure you install developer dependencies beforehand.
 
     npm install --dev
