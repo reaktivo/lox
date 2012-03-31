@@ -51,6 +51,21 @@ Lox is written in coffeescript by Marcel Miranda [<reaktivo.com>](http://reaktiv
     app.get '/logout', (req, res, next) ->
       req.logout -> res.redirect '/'
 
+## Login and logout for the lazy
+
+Lox also provides login and logout middleware so you can quickly add it to your express project.
+
+    # Both the login and logout handlers receive parameters
+    # for uri's to redirect to for a successful of failed
+    # login or logout attempt
+
+    # Login
+    app.post "/login", lox.routes.login("/success_uri", "/fail_uri")
+
+    # Logout
+    app.get "/logout", lox.routes.logout("/success_uri", "/fail_uri")
+
+
 ## Testing
 
 As I said before, Lox is written in coffee-script, so I you want to contribute to it, you have to build your js and test you don't break anything
