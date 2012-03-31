@@ -30,6 +30,6 @@
   "scripts": {
     "pretest": "cake build",
     "prepublish": "cake build",
-    "test": "mocha --compilers coffee:coffee-script"
+    "test": "mocha --compilers coffee:coffee-script --reporter spec --no-colors"
   }
 }
