@@ -2,13 +2,13 @@ routes = require './routes'
 
 User = null
 
-setUser = (req, callback) ->
+setUser = (req, res, next) ->
   if (req.session.user)
     getUser req.session.user, (err, user) ->
       req.user = user
       res.locals {user}
-      callback err, user
-  else do callback
+      next err, user
+  else do next
 
 connect = (mongoDb) ->
   connection = require('./db')(mongoDb)
@@ -17,20 +17,20 @@ connect = (mongoDb) ->
   (req, res, next) ->
     unless req.session
       next new Error "Express Session middleware required for auth"
-    req.login = login(req)
-    req.logout = logout(req)
-    setUser req, next
+    req.login = login(req, res)
+    req.logout = logout(req, res)
+    setUser req, res, next
 
-login = (req) ->
+login = (req, res) ->
   (email, password = "", callback) ->
     getUser email, (err, user) ->
       callback err if err
       if user?.verify(password)
         req.session.user = user.email
-      setUser req, (err, user) ->
+      setUser req, res, (err, user) ->
         callback(err, user)
 
-logout = (req) ->
+logout = (req, res) ->
   (callback) ->
     req.user = null
     do req.session.destroy

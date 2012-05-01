@@ -10,10 +10,10 @@ describe 'Lox', ->
     password: 'somepassword'
 
   # Mock request
+  res =
+    locals: (locals) ->
+      # Set locals
   req =
-    app:
-      locals: (locals) ->
-        # Set locals
     session:
       destroy: -> # session destroyed
 
@@ -24,7 +24,7 @@ describe 'Lox', ->
   describe 'req.login', ->
     it 'should login without error', (done) ->
       # Simulate request flow with req, res, next
-      middleware req, null, (err) ->
+      middleware req, res, (err) ->
         done err if err
         req.login form.user, form.password, (err, user) ->
           assert(user.email == form.email, "User logged in")
@@ -33,7 +33,7 @@ describe 'Lox', ->
   describe 'req.logout', ->
     it 'should logout without error', (done) ->
       # Simulate request flow with req, res, next
-      middleware req, null, (err) ->
+      middleware req, res, (err) ->
         done err if err
         req.logout done
 
