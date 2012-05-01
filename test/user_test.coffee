@@ -11,6 +11,9 @@ describe 'Lox', ->
 
   # Mock request
   req =
+    app:
+      locals: (locals) ->
+        # Set locals
     session:
       destroy: -> # session destroyed
 
