@@ -1,7 +1,7 @@
 {
   "author": "Marcel Miranda <m@reaktivo.com> (http://reaktivo.com)",
   "name": "lox",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A tiny mongoose based authentication middleware for Express",
   "homepage": "http://reaktivo.github.com/lox",
   "tags": [
@@ -31,5 +31,6 @@
     "pretest": "cake build",
     "prepublish": "cake build",
     "test": "mocha --compilers coffee:coffee-script --reporter spec --no-colors"
-  }
+  },
+  "optionalDependencies": {}
 }
