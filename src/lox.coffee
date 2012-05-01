@@ -6,7 +6,7 @@ setUser = (req, callback) ->
   if (req.session.user)
     getUser req.session.user, (err, user) ->
       req.user = user
-      req.locals {user}
+      res.locals {user}
       callback err, user
   else do callback
 
