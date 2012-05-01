@@ -39,6 +39,10 @@ Lox is written in coffeescript by [Marcel Miranda](http://reaktivo.com).
     app.get '/who', (req, res) ->
       res.send req.user or "No user logged in"
 
+    # You can also access the user from a view
+    # via the 'user' local
+
+
     # Create session (login)
     app.post '/login', (req, res, next) ->
       email = req.body.email
@@ -50,6 +54,8 @@ Lox is written in coffeescript by [Marcel Miranda](http://reaktivo.com).
     # Destroy session (logout)
     app.get '/logout', (req, res, next) ->
       req.logout -> res.redirect '/'
+
+
 
 ## Login and logout for the lazy
 
