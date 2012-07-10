@@ -20,7 +20,14 @@ Lox is written in coffeescript by [Marcel Miranda](http://reaktivo.com).
     # Make sure to add the session middleware
     app.use express.session(secret: "234asldkn2naodufnu4n")
 
+    # Create an instance of mongoose
+    mongoose = require 'mongoose'
+    mongoDb = mongoose.createConnection 'mongodb://user:password@staff.mongohq.com:1234/whatever'
+
     # Then use the lox middleware
+    app.use lox(mongoDb)
+
+    # or just pass a mongodb connection string directly
     app.use lox('mongodb://user:password@staff.mongohq.com:1234/whatever')
 
     # Create a user
@@ -70,6 +77,11 @@ Lox also provides login and logout middleware so you can quickly add it to your 
 
     # Logout
     app.get "/logout", lox.routes.logout("/success_uri", "/fail_uri")
+
+
+## Version History
+
+ - 0.3.0 Allows sharing a mongoose instance when calling the lox method
 
 
 ## Testing
