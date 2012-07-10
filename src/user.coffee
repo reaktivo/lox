@@ -21,4 +21,6 @@ UserSchema.methods.verify = (password) ->
   hash.verify password, this.password
 
 module.exports = (connection) ->
+  unless connection
+    throw new Error("Connection argument is required")
   connection.model 'User', UserSchema
