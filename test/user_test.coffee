@@ -1,6 +1,8 @@
 assert = require 'assert'
 lox = require '../lib/lox'
-middleware = lox 'mongodb://tests:tests@staff.mongohq.com:10083/tests'
+mongoose = require 'mongoose'
+mongoDb = mongoose.createConnection 'mongodb://tests:tests@staff.mongohq.com:10083/tests'
+middleware = lox mongoDb
 
 describe 'Lox', ->
 
