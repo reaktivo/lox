@@ -92,6 +92,7 @@ You can extend it via Mongoose's [plugin functionality](http://mongoosejs.com/do
 
 ## Version History
 
+ - 0.3.1 Fixed error requiring db
  - 0.3.0 Allows sharing a mongoose instance when calling the lox method
 
 
