@@ -79,6 +79,17 @@ Lox also provides login and logout middleware so you can quickly add it to your 
     app.get "/logout", lox.routes.logout("/success_uri", "/fail_uri")
 
 
+## Extending the User Model
+
+The default User model that comes with lox only contains the `email` and `password` fields with corresponding validation and hashing features.
+You can extend it via Mongoose's [plugin functionality](http://mongoosejs.com/docs/plugins.html) or by adding your own fields directly.
+
+    UserSchema = lox.User
+    UserSchena.add {
+      name: String
+      age: Number
+    }
+
 ## Version History
 
  - 0.3.0 Allows sharing a mongoose instance when calling the lox method
