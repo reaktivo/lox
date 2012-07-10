@@ -5,14 +5,14 @@ User = null
 setUser = (req, res, next) ->
   if (req.session.user)
     getUser req.session.user, (err, user) ->
+      user.logout = logout(req, res)
       req.user = user
       res.locals {user}
       next err, user
   else do next
 
-connect = (mongoDb) ->
-  connection = require('./db')(mongoDb)
-  User = connect.User = require('./user')(connection)
+lox = (connection) ->
+  User = lox.User = require('./user')(connection)
 
   (req, res, next) ->
     unless req.session
@@ -55,12 +55,12 @@ find = (query, callback) ->
     query = {}
   User.find query, (err, users) -> callback(err, users)
 
-module.exports = connect
-connect.middleware = connect
-connect.login = login
-connect.logout = logout
-connect.getUser = getUser
-connect.create = create
-connect.destroy = destroy
-connect.find = find
-connect.routes = routes
+module.exports = lox
+lox.middleware = lox
+lox.login = login
+lox.logout = logout
+lox.getUser = getUser
+lox.create = create
+lox.destroy = destroy
+lox.find = find
+lox.routes = routes
