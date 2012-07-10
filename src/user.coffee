@@ -1,4 +1,3 @@
-db = require './db'
 hash = require 'password-hash'
 mongoose = require 'mongoose'
 
