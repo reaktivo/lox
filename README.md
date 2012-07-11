@@ -84,14 +84,14 @@ Lox also provides login and logout middleware so you can quickly add it to your 
 The default User model that comes with lox only contains the `email` and `password` fields with corresponding validation and hashing features.
 You can extend it via Mongoose's [plugin functionality](http://mongoosejs.com/docs/plugins.html) or by adding your own fields directly.
 
-    UserSchema = lox.User
-    UserSchena.add {
+    lox.Schema.add {
       name: String
       age: Number
     }
 
 ## Version History
 
+ - 0.3.3 Correctly expose User Schema via lox.Schema
  - 0.3.1 Fixed error requiring db
  - 0.3.0 Allows sharing a mongoose instance when calling the lox method
 

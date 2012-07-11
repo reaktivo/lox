@@ -1,5 +1,6 @@
 routes = require './routes'
 mongoose = require 'mongoose'
+UserSchema = require './user'
 
 User = null
 
@@ -15,7 +16,8 @@ setUser = (req, res, next) ->
 lox = (connection) ->
   if typeof connection is 'string'
     connection = mongoose.createConnection(connection)
-  User = lox.User = require('./user')(connection)
+  lox.Schema = UserSchema
+  User = lox.User = connection.model 'User', UserSchema
   (req, res, next) ->
     unless req.session
       next new Error "Express Session middleware required for auth"
