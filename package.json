@@ -21,7 +21,8 @@
   },
   "dependencies": {
     "mongoose": "2.5.13",
-    "password-hash": "1.1.3"
+    "password-hash": "1.1.3",
+    "async": "~0.1.22"
   },
   "devDependencies": {
     "coffee-script": "1.2.0",
