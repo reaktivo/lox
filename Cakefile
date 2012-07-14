@@ -1,46 +1,50 @@
 {exec} = require 'child_process'
+async = require 'async'
 
-findExecutable = (executable, callback) ->
-  exec "test `which #{executable}` || echo 'Missing #{executable}'", (err, stdout, stderr) ->
-    throw new Error(err) if err
-    callback() if callback
+findExecutable = (executable, callback = console.log) ->
+  exec "test `which #{executable}` || echo 'Missing #{executable}'", callback
 
-build = (callback) ->
-  exec 'mkdir -p lib', (err, stdout, stderr) ->
-    throw new Error(err) if err
-    exec "coffee --compile --output lib/ src/", (err, stdout, stderr) ->
-      throw new Error(err) if err
-      callback() if callback
-      
-removeJS = (callback) ->
-  exec 'rm -fr lib/', (err, stdout, stderr) ->
-    throw new Error(err) if err
-    callback() if callback
+build = (callback = console.log) ->
+  async.series [
+    (done) -> removeJS done
+    (done) -> exec 'mkdir -p lib', done
+    (done) -> exec "coffee --compile --output lib/ src/", done
+  ], callback
 
-checkDependencies = (callback) ->
-  findExecutable 'coffee', ->
-    findExecutable 'vows', (err, stdout) ->
-      (callback or console.log) (stdout)
-      
+removeJS = (callback = console.log) ->
+  exec 'rm -fr lib/', callback
+
+checkDependencies = (dependencies, callback = console.log) ->
+  dependencies = dependencies.map (dep) ->
+    (done) -> findExecutable dep, done
+  async.parallel dependencies, callback
+
 test = (callback = console.log) ->
-  checkDependencies ->
-    build ->
-      exec "vows --spec test/*", (err, stdout) ->
-        callback(stdout)
+  async.series [
+    (done) -> checkDependencies ['vows', 'coffee'], done
+    (done) -> build done
+    (done) -> exec "vows --spec test/*"
+  ]
 
 publish = (callback = console.log) ->
-  build ->
-    findExecutable 'npm', ->
-      exec 'npm publish', (err, stdout) ->
-        callback(stdout)
+  async.series [
+    (done) -> build done
+    (done) -> findExecutable 'npm', done
+    (done) -> exec 'npm publish', done
+  ]
 
 dev_install = (callback = console.log) ->
-  build ->
-    findExecutable 'npm', ->
-      exec 'npm link .', (err, stdout) ->
-        callback(stdout)
+  async.series [
+    build
+    findExecutable 'npm', done
+    exec 'npm link .', done
+  ], callback
 
-task 'build', 'Build lib from src', -> build()
+log = (err) ->
+  console.log err if err
+
+task 'build', 'Build lib from src', -> build log
 task 'test', 'Test project', -> test()
-task 'publish', 'Publish project to npm', -> publish()
-task 'dev-install', 'Install developer dependencies', -> dev_install()
+task 'cleanup', 'Clean lib folder', -> removeJS log
+task 'publish', 'Publish project to npm', -> publish log
+task 'dev-install', 'Install developer dependencies', -> dev_install log
