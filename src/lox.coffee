@@ -13,11 +13,23 @@ setUser = (req, res, next) ->
       next err, user
   else do next
 
-lox = (connection) ->
+lox = (connection, extendFn) ->
+
+  # set lox Schema
+  lox.Schema = UserSchema
+
+  # check if connection arg is passed
   if typeof connection is 'string'
     connection = mongoose.createConnection(connection)
-  lox.Schema = UserSchema
+
+  # call the extend with the User Schema
+  if typeof extendFn is 'function'
+    extendFn lox.Schema
+
+  # create user Model
   User = lox.User = connection.model 'User', UserSchema
+
+  # return middleware
   (req, res, next) ->
     unless req.session
       next new Error "Express Session middleware required for auth"
