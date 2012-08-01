@@ -9,7 +9,9 @@ UserSchema = new mongoose.Schema
     required: true
     type: String
     unique: true
-    validate: [isEmail, 'Invalid email']
+    lowercase: true
+    trim: true
+    validate: [isEmail, 'invalid_email']
   password:
     required: true
     type: String
