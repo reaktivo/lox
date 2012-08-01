@@ -97,6 +97,7 @@ Mongoose's [plugin functionality](http://mongoosejs.com/docs/plugins.html)
 
 ## Version History
 
+ - 0.4.1 Force trimmed and lowercased email
  - 0.4.0 Adds functionality to extend User Schema
  - 0.3.4 Updated to latest Mongoose (2.6.8)
  - 0.3.3 Correctly expose User Schema via lox.Schema
