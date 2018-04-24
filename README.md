@@ -1,5 +1,7 @@
 # Lox
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/reaktivo/lox.svg)](https://greenkeeper.io/)
+
 Lox is a tiny mongoose based authentication middleware for [Express](http://expressjs.com).
 It tries to provide the minimum set of features to handle user authentication.
 Lox is written in coffeescript by [Marcel Miranda](http://reaktivo.com).
